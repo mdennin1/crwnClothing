@@ -1,9 +1,9 @@
 import React from 'react';
-import './menuItem.css';
+import './menuItem.scss';
 
 //functions
-const menuItem = ({imageUrl, title}) =>(
-    <div className="menuItem" style={{
+const menuItem = ({imageUrl, size, title}) =>(
+    <div className={`${size} menu-item`} style={{
         backgroundImage: `url(${imageUrl})`
     }}>
         <div className="content">
