@@ -11,7 +11,7 @@ const Header = () =>(
         <div className="options">
             {navOptions.map(nav=>(
                 <Link className="option" to={`/${nav}`}>
-                    {nav}
+                    {nav.toUpperCase()}
                 </Link>
             ))}
         </div>
