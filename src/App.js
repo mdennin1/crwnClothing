@@ -7,15 +7,47 @@ import ShopPage from './pages/shopPage/shopPage';
 //components
 import Header from './components/header/header';
 //utils
-import { auth } from './firebase/firebase';
+import { auth, firebaseApp } from './firebase/firebase';
 //
+// class App extends React.Component{
+//   constructor(){
+//     super();
+//     this.state = {
+//       currentUser: null,
+//     }
+//   }
+//   unsubscribeFromAuth = null;
+//   componentDidMount(){
+//     this.unsubscribeFromAuth = auth.onAuthStateChanged(user =>{
+//       this.setState({currentUser: user});
+//       console.log(this.state);
+//     });
+//   }
+//   componentWillUnmount(){
+//     this.unsubscribeFromAuth();
+//   }
+//   //
+//   render(){
+//     return (
+//       <div className="App">
+//         <Header currentUser={this.state.currentUser}/>
+//         <Switch>
+//           <Route exact path="/" component={HomePage} />
+//           <Route exact path="/shop" component={ShopPage} />
+//           <Route exact path="/login" component={LoginPage} />
+//         </Switch>
+//       </div>
+//     ) 
+//   }
+// }
+///
 function App() {
-  const [currentUser, setCurrentUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState();
   userEffect(()=>{
-    auth.onAuthStateChanged(user =>setCurrentUser(user));
+    const unsubscribe = auth.onAuthStateChanged(user =>setCurrentUser(user));
     console.log(currentUser);
-    return (() => auth.onAuthStateChanged(user => setCurrentUser(user)));
-  }, [currentUser]);
+    return unsubscribe;
+  }, []);
   return (
     <div className="App">
       <Header />
@@ -27,5 +59,5 @@ function App() {
     </div>
   )
 }
-
+//
 export default App;
