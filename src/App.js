@@ -1,4 +1,4 @@
-import React, { userEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, Route, Router, Switch } from 'react-router-dom';
 //pages
 import HomePage from './pages/homepage/homepage';
@@ -43,7 +43,7 @@ import { auth, firebaseApp } from './firebase/firebase';
 ///
 function App() {
   const [currentUser, setCurrentUser] = useState();
-  userEffect(()=>{
+  useEffect(()=>{
     const unsubscribe = auth.onAuthStateChanged(user =>setCurrentUser(user));
     console.log(currentUser);
     return unsubscribe;
