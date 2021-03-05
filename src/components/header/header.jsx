@@ -13,7 +13,7 @@ const Header = (props) =>(
             {navOptions.map(nav=>{
                 if(nav === 'login' && props.currentUser){
                     return(
-                        <div className="option" onClick={()=>auth.signOut()}>
+                        <div key={nav} className="option" onClick={()=>auth.signOut()}>
                             Sign Out
                         </div>
                     )
