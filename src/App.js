@@ -50,7 +50,7 @@ function App() {
   }, []);
   return (
     <div className="App">
-      <Header />
+      <Header currentUser={currentUser} />
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route exact path="/shop" component={ShopPage} />
