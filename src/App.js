@@ -7,7 +7,7 @@ import ShopPage from './pages/shopPage/shopPage';
 //components
 import Header from './components/header/header';
 //utils
-import { auth, firebaseApp } from './firebase/firebase';
+import { auth, createUserProfileDocument, firebaseApp } from './firebase/firebase';
 //
 // class App extends React.Component{
 //   constructor(){
@@ -44,8 +44,15 @@ import { auth, firebaseApp } from './firebase/firebase';
 function App() {
   const [currentUser, setCurrentUser] = useState();
   useEffect(()=>{
-    const unsubscribe = auth.onAuthStateChanged(user =>setCurrentUser(user));
-    console.log(currentUser);
+    const unsubscribe = auth.onAuthStateChanged(async userAuth =>{
+      if(userAuth){
+        const userRef = await createUserProfileDocument(userAuth);
+        const user = await userRef.onSnapshot().data()
+        setCurrentUser({...user});
+      }
+      setCurrentUser(null);
+    });
+    console.log(`currentUser: ${JSON.stringify(currentUser)}`);
     return unsubscribe;
   }, []);
   return (

@@ -42,10 +42,9 @@ import ACTIONS from '../../constants/actions';
 // }
 //
 const reducer = (state, action) => {
-    console.log(`action: ${JSON.stringify(action)}`);
     switch (action.type){
-        case ACTIONS.SET_USERNAME:
-        case ACTIONS.SET_PASSWORD:
+        case ACTIONS.username:
+        case ACTIONS.password:
             return state = {...state, [action.type]: action.payload};
         default:
             break;
@@ -62,7 +61,7 @@ const SignIn = props =>{
             <h2>I already have an account</h2>
             <span>{`Sign in with email & password`}</span>
             <form>
-                <FormInput label='Email' name={ACTIONS.SET_USERNAME} type='email' value={state.username} dispatch={dispatch} />
+                <FormInput label='Email' name={ACTIONS.username} type='email' value={state.username} dispatch={dispatch} />
                 <FormInput label="Password" name='password' type='password' value={state.password} dispatch={dispatch} />
                 <div className="buttons">
                     <CustomBtn type='submit'>Sign In</CustomBtn>

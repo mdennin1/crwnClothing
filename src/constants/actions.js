@@ -1,5 +1,7 @@
 const ACTIONS = {
-    SET_USERNAME: 'username',
-    SET_PASSWORD: 'password',
+    username: 'username',
+    password: 'password',
+    displayName: 'displayName',
+    confirmPassword: 'confirmPassword',
 }
 export default ACTIONS;
