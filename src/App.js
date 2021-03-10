@@ -13,11 +13,12 @@ function App() {
   const [currentUser, setCurrentUser] = useState();
   useEffect(()=>{
     const unsubscribe = auth.onAuthStateChanged(async userAuth =>{
-      console.log(`%cuserAuth: ${JSON.stringify(userAuth)}`, 'color: purple; font-size: medium;');
       if(userAuth){
         const userRef = await createUserProfileDocument(userAuth);
-        console.log(`userRef: ${JSON.stringify(userRef)}`);
-        userRef.onSnapshot(snapshot=>setCurrentUser({...snapshot.data()}));
+        userRef.onSnapshot(snapshot=>{
+          console.log(`current user snapshot: ${JSON.stringify(snapshot.data())}`, 'color: green');
+          setCurrentUser({...snapshot.data()})
+        });
       }
       setCurrentUser(null);
     });
