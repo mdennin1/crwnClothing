@@ -7,15 +7,17 @@ import ShopPage from './pages/shopPage/shopPage';
 //components
 import Header from './components/header/header';
 //utils
-import { auth, createUserProfileDocument, firebaseApp } from './firebase/firebase';
+import { auth, createUserProfileDocument, firebase } from './firebase/firebase';
 //
 function App() {
   const [currentUser, setCurrentUser] = useState();
   useEffect(()=>{
     const unsubscribe = auth.onAuthStateChanged(async userAuth =>{
+      console.log(`%cuserAuth: ${JSON.stringify(userAuth)}`, 'color: purple; font-size: medium;');
       if(userAuth){
         const userRef = await createUserProfileDocument(userAuth);
-        await userRef.onSnapshot(snapshot=>setCurrentUser(snapshot.data()));
+        console.log(`userRef: ${JSON.stringify(userRef)}`);
+        userRef.onSnapshot(snapshot=>setCurrentUser({...snapshot.data()}));
       }
       setCurrentUser(null);
     });
