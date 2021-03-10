@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useReducer } from 'react';
 import FormInput from '../../components/formInput/formInput';
 import CustomBtn from '../../components/customBtn/customBtn';
-import {auth, createUserProfileDocument } from '../../firebase/firebase';
+import {auth, createUserProfileDocument, createUserWithEmailAndPassword } from '../../firebase/firebase';
 import ACTIONS from '../../constants/actions';
 
 const reducer = (state, action) =>{
@@ -12,6 +12,9 @@ const reducer = (state, action) =>{
         case ACTIONS.password:
         case ACTIONS.confirmPassword:
             return state = {...state, [action.type]: action.payload};
+        case ACTIONS.logout:
+        case ACTIONS.signUp:
+            return state = {};
         default: 
             console.log(`action: ${JSON.stringify(action)}`);
             break;
@@ -36,9 +39,17 @@ export default function SignUp() {
             <span>
                 sign up with your email and password
             </span>
-            <form className='sign-up-form' onSubmit={() =>{
+            <form className='sign-up-form' onSubmit={async (event) =>{
+                    event.preventDefault();
                     if(state.password === state.confirmPassword) {
-                        createUserProfileDocument({displayName: state.displayName, email: state.username, password: state.password});
+                        try{
+                            const { user } = await auth.createUserWithEmailAndPassword(state.username, state.password);
+                            const {displayName} = state
+                            await createUserProfileDocument(user, {displayName});
+                            dispatch({type: ACTIONS.signUp});
+                        } catch(error){
+                            console.error(JSON.stringify(error));
+                        }
                     }else{
                         alert('%cpassword values do not match', 'color:red;');
                     }
@@ -47,6 +58,7 @@ export default function SignUp() {
                 <FormInput type='email' label='Username' name='username' value={state.username} required dispatch={dispatch} />
                 <FormInput type='password' label='Password' name='password' value={state.password} required dispatch={dispatch} />
                 <FormInput type='password' label='confirmPassword' name='confirmPassword' value={state.confirmPassword} required dispatch={dispatch} />
+                <CustomBtn type='submit'>Submit</CustomBtn>
             </form>
         </div>
     )
