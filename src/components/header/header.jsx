@@ -5,16 +5,17 @@ import { ReactComponent as Logo } from  '../../assets/crown.svg';
 import { auth } from '../../firebase/firebase';
 import { connect } from 'react-redux';
 import CartIcon from '../../components/cartIcon/cartIcon';
+import CartDropdown from '../../components/cartDropdown/cartDropdown';
 //
 const navOptions = [ 'shop', 'contact', 'login'];
-const Header = (props) =>(
+const Header = ({currentUser, showCart}) =>(
     <div className="header">
         <Link className="logo-container" to="/">
             <Logo className="logo"/>
         </Link>
         <div className="options">
             {navOptions.map(nav=>{
-                if(nav === 'login' && props.currentUser){
+                if(nav === 'login' && currentUser){
                     return(
                         <div key={nav} className="option" onClick={()=>auth.signOut()}>
                             SIGN OUT
@@ -30,10 +31,11 @@ const Header = (props) =>(
             }
             <CartIcon />
         </div>
+        {showCart ? <CartDropdown /> : null}
     </div>
 );
 //
-const mapStateToProps = state =>({
-    currentUser: state.user.currentUser,
-})
+const mapStateToProps = ({user: {currentUser}, cart: { showCart }}) =>({
+    currentUser, showCart
+});
 export default connect(mapStateToProps)(Header);
