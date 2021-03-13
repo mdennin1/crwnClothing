@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom';
 import './header.scss';
 import { ReactComponent as Logo } from  '../../assets/crown.svg';
 import { auth } from '../../firebase/firebase';
+import { connect } from 'react-redux';
+import CartIcon from '../../components/cartIcon/cartIcon';
+//
 const navOptions = [ 'shop', 'contact', 'login'];
 const Header = (props) =>(
     <div className="header">
@@ -14,7 +17,7 @@ const Header = (props) =>(
                 if(nav === 'login' && props.currentUser){
                     return(
                         <div key={nav} className="option" onClick={()=>auth.signOut()}>
-                            Sign Out
+                            SIGN OUT
                         </div>
                     )
                 }
@@ -25,8 +28,12 @@ const Header = (props) =>(
                 )
             })
             }
+            <CartIcon />
         </div>
     </div>
 );
 //
-export default Header;
+const mapStateToProps = state =>({
+    currentUser: state.user.currentUser,
+})
+export default connect(mapStateToProps)(Header);
