@@ -29,7 +29,7 @@ const Header = ({currentUser, showCart}) =>(
                 )
             })
             }
-            <CartIcon />
+            {currentUser ? <CartIcon /> : null}
         </div>
         {showCart ? <CartDropdown /> : null}
     </div>
