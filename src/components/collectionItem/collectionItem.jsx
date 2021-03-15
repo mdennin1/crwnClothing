@@ -7,6 +7,7 @@ import { addToCart } from '../../redux/cart/cart.actions';
 //
 const CollectionItem = ({ item, addToCart }) => {
   const { name, price, imageUrl } = item;
+  console.log(`%citem: ${JSON.stringify(item)}`, 'font: purple');
   return (
     <div className='collection-item'>
       <div
