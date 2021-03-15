@@ -7,7 +7,7 @@ import { addToCart } from '../../redux/cart/cart.actions';
 //
 const CollectionItem = ({ item, addToCart }) => {
   const { name, price, imageUrl } = item;
-  console.log(`%citem: ${JSON.stringify(item)}`, 'font: purple');
+  console.log(`%citem: ${JSON.stringify(item)}`, 'color: purple');
   return (
     <div className='collection-item'>
       <div
@@ -18,7 +18,7 @@ const CollectionItem = ({ item, addToCart }) => {
       />
       <div className='collection-footer'>
         <span className='name'>{name}</span>
-        <span className='price'>{`$${price}`}</span>
+        <span className='price'>${price}</span>
       </div>
       <CustomBtn className='custom-button' inverted onClick={()=>addToCart(item)}>Add Item</CustomBtn>
     </div>
