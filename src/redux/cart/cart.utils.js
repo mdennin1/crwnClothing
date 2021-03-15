@@ -11,5 +11,5 @@ export const addItemToCart = (items, newItem) =>{
 export const removeItemFromCart = (items, removeItem) =>{
     return items.map(item =>{
         return item.Id === removeItem.Id ? {...item, quantity: --item.quantity} : item;
-    });
+    }).filter(item => item.quantity >= 0);
 }
