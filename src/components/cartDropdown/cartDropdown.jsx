@@ -2,8 +2,7 @@ import React, {useEffect} from 'react';
 import CustomBtn from '../../components/customBtn/customBtn';
 import CartItem from '../../components/cartItem/cartItem';
 import { connect } from 'react-redux';
-
-
+//
 const CartDropdown = ({items}) => {
   useEffect(() => {
     console.log(items);
