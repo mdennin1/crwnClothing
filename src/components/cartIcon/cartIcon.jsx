@@ -3,11 +3,9 @@ import './cartIcon.scss';
 import { ReactComponent as ShoppingIcon } from '../../assets/shopping_bag_icon.svg';
 import { connect } from 'react-redux';
 import { toggleShowCart } from '../../redux/cart/cart.actions';
-import { getItemCount } from '../../redux/cart/cart.utils';
-
+import { selectItemCount } from '../../redux/cart/cart.selectors';
+//
 const CartIcon = ({toggleShowCart, itemCount}) =>{
-    console.error(itemCount);
-    //
     return (
         <div className='cart-icon' onClick={toggleShowCart}>
             <ShoppingIcon className='shopping-icon'/>
@@ -16,7 +14,7 @@ const CartIcon = ({toggleShowCart, itemCount}) =>{
     )
 }
 //
-const mapStateToProps = state =>({ itemCount: getItemCount(state) });
+const mapStateToProps = state =>({ itemCount: selectItemCount(state) });
 const mapDispatchToProps = dispatch =>({
     toggleShowCart: () =>dispatch(toggleShowCart()),
 });

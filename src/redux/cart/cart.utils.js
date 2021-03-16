@@ -13,7 +13,3 @@ export const removeItemFromCart = (items, removeItem) =>{
         return item.Id === removeItem.Id ? {...item, quantity: --item.quantity} : item;
     }).filter(item => item.quantity >= 0);
 }
-export const getItemCount = state =>{
-    const { cart: {items} } = state;
-    return items?.reduce((itemCount, item)=>itemCount += item.quantity, 0);
-}
