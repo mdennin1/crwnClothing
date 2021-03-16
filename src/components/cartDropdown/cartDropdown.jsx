@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import CustomBtn from '../../components/customBtn/customBtn';
 import CartItem from '../../components/cartItem/cartItem';
 import { connect } from 'react-redux';
+import { selectCartItems } from '../../redux/cart/cart.selectors';
 //
 const CartDropdown = ({items}) => {
   useEffect(() => {
@@ -18,7 +19,5 @@ const CartDropdown = ({items}) => {
     </div>
   )}
   //
-  const mapStateToProps = ({ cart: { items }}) => ({
-    items,
-  });
+  const mapStateToProps = state => ({ items: selectCartItems(state) });
   export default connect(mapStateToProps)(CartDropdown);
