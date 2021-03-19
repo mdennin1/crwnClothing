@@ -5,6 +5,7 @@ import USER_ACTIONS from './constants/userActions.js';
 import { setCurrentUser } from './redux/user/user.actions';
 //pages
 import HomePage from './pages/homepage/homepage';
+import CheckoutPage from './pages/checkoutPage/checkoutPage';
 import LoginPage from './pages/loginPage/loginPage';
 import ShopPage from './pages/shopPage/shopPage';
 //components
@@ -47,6 +48,7 @@ class App extends React.Component {
         <Header />
         <Switch>
           <Route exact path='/' component={HomePage} />
+          <Route exact path='/checkout' component={CheckoutPage} />
           <Route path='/shop' component={ShopPage} />
           <Route path='/login' render={()=>this.props.currentUser ? (<Redirect to='/' />) : (<LoginPage />)} />
         </Switch>
