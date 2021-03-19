@@ -6,6 +6,11 @@ import { auth } from '../../firebase/firebase';
 import { connect } from 'react-redux';
 import CartIcon from '../../components/cartIcon/cartIcon';
 import CartDropdown from '../../components/cartDropdown/cartDropdown';
+//selectors
+import {createStructuredSelector} from 'reselect';
+import {selectCurrentUser} from '../../redux/user/user.selectors';
+import {selectShowCart} from '../../redux/cart/cart.selectors';
+
 //
 const navOptions = [ 'shop', 'contact', 'login'];
 const Header = ({currentUser, showCart}) =>(
@@ -35,7 +40,8 @@ const Header = ({currentUser, showCart}) =>(
     </div>
 );
 //
-const mapStateToProps = ({user: {currentUser}, cart: { showCart }}) =>({
-    currentUser, showCart
+const mapStateToProps = createStructuredSelector({
+    currentUser: selectCurrentUser, 
+    showCart: selectShowCart,
 });
 export default connect(mapStateToProps)(Header);
