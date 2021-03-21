@@ -1,5 +1,6 @@
 import CART_ACTIONS from '../../constants/cartActions';
-import { addItemToCart } from './cart.utils';
+import { addItemToCart, decreaseItemQuantity } from './cart.utils';
+import { removeFromCart } from './cart.utils';
 //
 const INITIAL_STATE ={
     showCart: false,
@@ -7,14 +8,17 @@ const INITIAL_STATE ={
 }
 
 const cartReducer = (state = INITIAL_STATE, action) =>{
+    const { items } = state;
+    const { payload } = action;
     switch(action.type){
         case CART_ACTIONS.addToCart:
-            const { items } = state;
-            const { payload } = action;
-            return state = {...state, items: addItemToCart(items, payload)};
-            // return state = {...state, items: items };
+            return {...state, items: addItemToCart(items, payload)};
+        case CART_ACTIONS.decreaseItemQuantity:
+            return {...state, items: decreaseItemQuantity(items, payload)};
+        case CART_ACTIONS.removeFromCart:
+            return {...state, items: removeFromCart(items, payload)};
         case CART_ACTIONS.toggleShowCart:
-            return state = {...state, showCart: !state.showCart}
+            return {...state, showCart: !state.showCart};
         default:
             return state;
     }
